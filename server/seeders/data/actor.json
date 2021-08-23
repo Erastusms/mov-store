@@ -1,0 +1,29 @@
+[
+    {
+        "actor_name": "Gemma Chan",
+        "char_name": "Sersi",
+        "year_date": "1982",
+        "filename": "GemmaChan.jpg",
+        "filesize": "8kb",
+        "filetype": "jpg",
+        "MovieId": 3
+    },
+    {
+        "actor_name": "Richard Madden",
+        "char_name": "Ikaris",
+        "year_date": "1986",
+        "filename": "RichardMadden.jpg",
+        "filesize": "8kb",
+        "filetype": "jpg",
+        "MovieId": 3
+    },
+    {
+        "actor_name": "Kumail Nanjiani",
+        "char_name": "Kingo",
+        "year_date": "1978",
+        "filename": "KumailNanjiani.jpg",
+        "filesize": "8kb",
+        "filetype": "jpg",
+        "MovieId": 3
+    }
+]

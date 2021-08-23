@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Aliyudin",
+        "email": "ali@gmail.com ",
+        "password": "123",
+        "birthdate": "1999-02-19",
+        "gender": "Male",
+        "avatar": "blank.png",
+        "type": "user"
+    },
+    {
+        "name": "admin",
+        "email": "admin@gmail.com",
+        "password": "admin",
+        "birthdate": "2000-09-09",
+        "gender": "Male",
+        "avatar": "blank.png",
+        "type": "admin"
+    }
+]
