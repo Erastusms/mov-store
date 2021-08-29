@@ -19,18 +19,87 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         primaryKey: true,
       },
-      subtotal: DataTypes.FLOAT,
-      discount: DataTypes.FLOAT,
-      tax: DataTypes.FLOAT,
-      total_due: DataTypes.FLOAT,
-      total_qty: DataTypes.INTEGER,
-      payt_trx_number: DataTypes.STRING,
-      city: DataTypes.STRING,
-      address: DataTypes.STRING,
+      subtotal: {
+        type: DataTypes.FLOAT,
+        validate: {
+          notEmpty: {
+            message: "Field cannot be empty!",
+          },
+        },
+      },
+      discount: {
+        type: DataTypes.FLOAT,
+        validate: {
+          notEmpty: {
+            message: "Field cannot be empty!",
+          },
+        },
+      },
+      tax: {
+        type: DataTypes.FLOAT,
+        validate: {
+          notEmpty: {
+            message: "Field cannot be empty!",
+          },
+        },
+      },
+      total_due: {
+        type: DataTypes.FLOAT,
+        validate: {
+          notEmpty: {
+            message: "Field cannot be empty!",
+          },
+        },
+      },
+      total_qty: {
+        type: DataTypes.INTEGER,
+        validate: {
+          notEmpty: {
+            message: "Field cannot be empty!",
+          },
+        },
+      },
+      payt_trx_number: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "Field cannot be empty!",
+          },
+        },
+      },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "City cannot be null!",
+          },
+          notEmpty: {
+            msg: "City cannot be empty!",
+          },
+        },
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Address cannot be null!",
+          },
+          notEmpty: {
+            msg: "Address cannot be empty!",
+          },
+        },
+      },
       status: DataTypes.STRING,
       UserId: DataTypes.INTEGER,
     },
     {
+      hooks: {
+        beforeCreate: (order, options) => {
+          order.status = "open";
+        },
+      },
       sequelize,
       modelName: "Order",
     }

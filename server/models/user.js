@@ -18,20 +18,62 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      birthdate: DataTypes.DATEONLY,
-      gender: DataTypes.STRING,
-      avatar: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "field cannot be empty!",
+          },
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "field cannot be empty!",
+          },
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "field cannot be empty!",
+          },
+        },
+      },
+      birthdate: {
+        type: DataTypes.DATEONLY,
+        validate: {
+          notEmpty: {
+            message: "field cannot be empty!",
+          },
+        },
+      },
+      gender: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "field cannot be empty!",
+          },
+        },
+      },
+      avatar: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "field cannot be empty!",
+          },
+        },
+      },
       type: DataTypes.STRING,
     },
     {
       hooks: {
         beforeCreate: (user, options) => {
           user.password = encrypter(user.password);
-          user.type = "user"
-        }
+          user.type = "user";
+        },
       },
       sequelize,
       modelName: "User",

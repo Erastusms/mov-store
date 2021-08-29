@@ -14,9 +14,33 @@ module.exports = (sequelize, DataTypes) => {
   }
   Movies_actor.init(
     {
-      actor_name: DataTypes.STRING,
-      char_name: DataTypes.STRING,
-      year_date: DataTypes.STRING,
+      actor_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Actor Name cannot be empty!",
+          },
+        },
+      },
+      char_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Char Name cannot be empty!",
+          },
+        },
+      },
+      year_date: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Year Date cannot be empty!",
+          },
+        },
+      },
       filename: DataTypes.STRING,
       filesize: DataTypes.STRING,
       filetype: DataTypes.STRING,

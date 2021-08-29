@@ -9,32 +9,156 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Movie.belongsTo(models.User)
-      Movie.hasMany(models.Movies_comment)
-      Movie.hasMany(models.Movies_actor)
-      Movie.hasMany(models.Line_items)
+      Movie.belongsTo(models.User);
+      Movie.hasMany(models.Movies_comment);
+      Movie.hasMany(models.Movies_actor);
+      Movie.hasMany(models.Line_items);
     }
   }
   Movie.init(
     {
-      title: DataTypes.STRING,
-      episode: DataTypes.INTEGER,
-      director: DataTypes.STRING,
-      studio: DataTypes.STRING,
-      tv_status: DataTypes.STRING,
-      duration: DataTypes.INTEGER,
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Title cannot be empty!",
+          },
+          notNull: true,
+        },
+      },
+      episode: {
+        type: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          validate: {
+            notEmpty: {
+              message: "Episode cannot be empty!",
+            },
+            isInt: true,
+            notNull: true,
+          },
+        },
+      },
+      director: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Director cannot be empty!",
+          },
+        },
+      },
+      studio: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Studio cannot be empty!",
+          },
+        },
+      },
+      tv_status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Tv status cannot be empty!",
+          },
+        },
+      },
+      duration: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Duration cannot be empty!",
+          },
+          isInt: true,
+          notNull: true,
+        },
+      },
       release: DataTypes.DATEONLY,
-      country: DataTypes.STRING,
-      genre: DataTypes.STRING,
-      rating_tmdb: DataTypes.FLOAT,
-      network: DataTypes.STRING,
-      trailer: DataTypes.STRING,
-      views: DataTypes.INTEGER,
-      price: DataTypes.FLOAT,
-      image: DataTypes.STRING,
+
+      country: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Country cannot be empty!",
+          },
+        },
+      },
+      genre: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Genre cannot be empty!",
+          },
+        },
+      },
+      rating_tmdb: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Rating cannot be empty!",
+          },
+        },
+      },
+      network: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Network cannot be empty!",
+          },
+        },
+      },
+      trailer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Trailer cannot be empty!",
+          },
+        },
+      },
+      views: {
+        type: DataTypes.INTEGER,
+        validate: {
+          notEmpty: {
+            message: "Views cannot be empty!",
+          },
+        },
+      },
+      price: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Price cannot be empty!",
+          },
+        },
+      },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            message: "Image cannot be empty!",
+          },
+        },
+      },
       UserId: DataTypes.INTEGER,
     },
     {
+      hooks: {
+        beforeCreate(movie, options) {
+          movie.views = 0;
+        },
+      },
       sequelize,
       modelName: "Movie",
     }
