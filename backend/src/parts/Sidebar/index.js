@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
@@ -32,22 +32,15 @@ export default function Sidebar() {
         <div className="sidebar-heading">Master</div>
 
         <li className="nav-item">
-          <a className="nav-link" to="/admin/category">
-            <i className="fas fa-fw fa-list-alt"></i>
-            <span>Category</span>
-          </a>
-        </li>
-
-        <li className="nav-item">
           <Link className="nav-link" to="/admin/list-users">
-            <i className="fas fa-fw fa-money-check"></i>
+            <i className="fas fa-fw fa-users"></i>
             <span>Users</span>
           </Link>
         </li>
 
         <li className="nav-item">
           <Link className="nav-link" to="/admin/list-movies">
-            <i className="fas fa-fw fa-hotel"></i>
+            <i className="fas fa-fw fa-film"></i>
             <span>Movies</span>
           </Link>
         </li>
@@ -55,9 +48,9 @@ export default function Sidebar() {
         <div className="sidebar-heading">Order</div>
 
         <li className="nav-item">
-          <Link className="nav-link" to="/admin/booking">
-            <i className="fas fa-fw fa-shopping-cart"></i>
-            <span>Booking</span>
+          <Link className="nav-link" to="/admin/orders">
+            <i className="fas fa-fw fa-receipt"></i>
+            <span>Order</span>
           </Link>
         </li>
 

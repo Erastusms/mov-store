@@ -2,34 +2,15 @@
 import React, { useState, useEffect } from "react";
 
 import "./index.css";
-import { Link, useHistory } from "react-router-dom";
-import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export default function Header({ handleLogout, isUpdated }) {
-  const history = useHistory();
   const [admin, setAdmin] = useState({});
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("admin"));
     setAdmin(userData);
   }, [isUpdated]);
-  // const logoutHandler = (e) => {
-  //   Swal.fire({
-  //     title: "Hello there..",
-  //     text: "Are you sure you want to log out?",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Yes",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       userLogin(false);
-  //       localStorage.clear();
-  //       history.push("/");
-  //     }
-  //   });
-  // };
 
   return (
     <div>
@@ -50,23 +31,25 @@ export default function Header({ handleLogout, isUpdated }) {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Admin
+                {admin.name}
               </a>
               <ul
                 className="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                 aria-labelledby="navbarDarkDropdownMenuLink"
               >
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Account
-                  </a>
+                  <Link className="dropdown-item" to="/admin/account">
+                    <i className="fas fa-fw fa-user mr-2"></i>
+                    <span>Account</span>
+                  </Link>
                 </li>
                 <li>
                   <button
                     onClick={() => handleLogout()}
                     className="dropdown-item"
                   >
-                    Logout
+                    <i className="fas fa-fw fa-sign-out-alt mr-2"></i>
+                    <span>Logout</span>
                   </button>
                 </li>
               </ul>

@@ -1,8 +1,8 @@
 import React from "react";
-import AddMovies from "./AddMovies";
-import { TableMovie } from "parts";
+import ActorsPage from "./ActorsPage";
+import { TableEditMovie } from "parts";
 
-export default function ListMovies() {
+export default function EditMovie() {
   return (
     <div class="container-fluid mt-3">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -16,7 +16,7 @@ export default function ListMovies() {
             aria-controls="home"
             aria-selected="true"
           >
-            Show Movie
+            Add Actors
           </a>
         </li>
         <li class="nav-item">
@@ -29,7 +29,7 @@ export default function ListMovies() {
             aria-controls="profile"
             aria-selected="false"
           >
-            Add Movie
+            Edit Movie
           </a>
         </li>
       </ul>
@@ -41,7 +41,7 @@ export default function ListMovies() {
           role="tabpanel"
           aria-labelledby="home-tab"
         >
-          <TableMovie />
+          <ActorsPage />
         </div>
         {/* konten add movies */}
         <div
@@ -50,7 +50,7 @@ export default function ListMovies() {
           role="tabpanel"
           aria-labelledby="profile-tab"
         >
-          <AddMovies />
+          <TableEditMovie />
         </div>
       </div>
       <a class="scroll-to-top rounded" href="#page-top">

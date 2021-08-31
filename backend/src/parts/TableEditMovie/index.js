@@ -1,26 +1,38 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export default function AddMovies() {
-  const history = useHistory();
+export default function TableEditMovie() {
+  const params = useParams();
+  const id = +params.id;
   const URL = "http://localhost:3000";
-  const [state, setState] = useState({
-    title: "",
-    episode: 0,
-    director: "",
-    studio: "",
-    tv_status: "",
-    duration: 0,
-    release: "",
-    country: "",
-    genre: "",
-    rating_tmdb: 0,
-    network: "",
-    trailer: "",
-    price: 0,
-  });
+  const history = useHistory();
+  const [state, setState] = useState({});
+  const [file, setFile] = useState("");
+
+  useEffect(() => {
+    console.log("use effect jalan");
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const access_token = localStorage.getItem("access_token");
+      let result = await axios({
+        method: "GET",
+        url: `${URL}/admin/detail-movies/${id}`,
+        headers: {
+          access_token,
+        },
+      });
+      console.log(result.data);
+      setState(result.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleChange = (e) => {
     setState({
@@ -29,13 +41,12 @@ export default function AddMovies() {
     });
   };
 
-  const [file, setFile] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
-    addData();
+    updatedData();
   };
 
-  const addData = async () => {
+  const updatedData = async () => {
     try {
       const access_token = localStorage.getItem("access_token");
       let data = new FormData();
@@ -56,8 +67,8 @@ export default function AddMovies() {
       console.log(data);
       console.log(access_token);
       const result = await axios({
-        method: "POST",
-        url: `${URL}/admin/add-movies`,
+        method: "PUT",
+        url: `${URL}/admin/edit-movies/${id}`,
         data: data,
         headers: {
           access_token,
@@ -66,7 +77,7 @@ export default function AddMovies() {
       });
       console.log(result.data);
       history.push("/");
-      Swal.fire("Congratulations", "Movies has been created", "success");
+      Swal.fire("Congratulations", "Movies has been updated", "success");
     } catch (err) {
       Swal.fire("ERROR", `${err}`, "error");
       console.log(err.response.data);
@@ -83,6 +94,7 @@ export default function AddMovies() {
             className="form-control"
             name="title"
             placeholder="Enter title"
+            value={state.title}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -93,6 +105,7 @@ export default function AddMovies() {
             className="form-control"
             name="episode"
             placeholder="Enter episode"
+            value={state.episode}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -103,6 +116,7 @@ export default function AddMovies() {
             className="form-control"
             name="director"
             placeholder="Enter director"
+            value={state.director}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -113,6 +127,7 @@ export default function AddMovies() {
             className="form-control"
             name="studio"
             placeholder="Enter studio"
+            value={state.studio}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -121,6 +136,7 @@ export default function AddMovies() {
           <select
             className="form-control"
             name="tv_status"
+            value={state.tv_status}
             onChange={(e) => handleChange(e)}
           >
             <option disabled selected value="">
@@ -138,6 +154,7 @@ export default function AddMovies() {
             className="form-control"
             name="duration"
             placeholder="Enter duration"
+            value={state.duration}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -148,6 +165,7 @@ export default function AddMovies() {
             className="form-control"
             name="release"
             placeholder="Enter release"
+            value={state.release}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -158,6 +176,7 @@ export default function AddMovies() {
             className="form-control"
             name="country"
             placeholder="Enter country"
+            value={state.country}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -168,6 +187,7 @@ export default function AddMovies() {
             className="form-control"
             name="genre"
             placeholder="Enter genre"
+            value={state.genre}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -178,6 +198,7 @@ export default function AddMovies() {
             className="form-control"
             name="rating_tmdb"
             placeholder="Enter rating_tmdb"
+            value={state.rating_tmdb}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -188,6 +209,7 @@ export default function AddMovies() {
             className="form-control"
             name="network"
             placeholder="Enter network"
+            value={state.network}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -198,6 +220,7 @@ export default function AddMovies() {
             className="form-control"
             name="trailer"
             placeholder="Enter trailer"
+            value={state.trailer}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -208,6 +231,7 @@ export default function AddMovies() {
             className="form-control"
             name="price"
             placeholder="Enter price"
+            value={state.price}
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -221,7 +245,7 @@ export default function AddMovies() {
           />
         </div>
         <button className="btn btn-success" onClick={(e) => submitHandler(e)}>
-          Save
+          Update
         </button>
       </div>
     </div>

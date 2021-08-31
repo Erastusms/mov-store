@@ -32,4 +32,22 @@ const LoginAPI = async (form) => {
   return data;
 };
 
-export { AdminAPI, LoginAPI };
+const UpdateProfileAPI = async (access_token, form) => {
+  const data = await axios
+    .put(`${API_URL}/api/v1/profile`, form, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        access_token,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+
+  return data;
+};
+
+export { AdminAPI, LoginAPI, UpdateProfileAPI };

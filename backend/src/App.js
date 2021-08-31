@@ -1,15 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { LoginPage, Dashboard } from "pages";
-import { Header, Footer } from "parts";
-import { Loading } from "components"
+import { BrowserRouter as Router } from "react-router-dom";
+import { LoginPage, MainPage } from "pages";
+import { Loading } from "components";
 import { AdminAPI } from "admins";
 import "./App.css";
 
 function App() {
   const [login, setLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [updated, setUpdated] = useState()
+  const [updated, setUpdated] = useState();
 
   const handleLogin = () => {
     setIsLoading(true);
@@ -46,7 +46,6 @@ function App() {
         setIsLoading(false);
       }
     } else {
-      // setLogin(false);
       setIsLoading(false);
     }
   }, []);
@@ -54,15 +53,15 @@ function App() {
   return (
     <Router>
       {isLoading ? (
-          <Loading />
-        ) : login ? (
-          <>
-            {/* <Header  updated={updated} /> */}
-            <Dashboard handleLogout={handleLogout} handleUpdateProfile={() => handleUp()} />
-          </>
-        ) : (
-        // </div>
-        // </div>
+        <Loading />
+      ) : login ? (
+        <>
+          <MainPage
+            handleLogout={handleLogout}
+            handleUpdateProfile={() => handleUp()}
+          />
+        </>
+      ) : (
         <LoginPage handleLogin={handleLogin} />
       )}
     </Router>
