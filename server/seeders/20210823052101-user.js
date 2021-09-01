@@ -1,5 +1,6 @@
 "use strict";
 const fs = require("fs");
+const { encrypter } = require("../helpers/bcrypt");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -16,10 +17,11 @@ module.exports = {
     );
     let userData = users.map((user) => {
       const { name, email, password, birthdate, gender, avatar, type } = user;
+      const newPassword = encrypter(password);
       return {
         name,
         email,
-        password,
+        password: newPassword,
         birthdate,
         gender,
         avatar,
