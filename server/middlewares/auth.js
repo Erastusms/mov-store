@@ -1,7 +1,7 @@
 const { Movie } = require("../models");
 const { tokenVerifier } = require("../helpers/jwt");
 
-const authentication = (req, res, next) => {
+const adminAuth = (req, res, next) => {
   const { access_token } = req.headers;
 
   try {
@@ -30,27 +30,27 @@ const authentication = (req, res, next) => {
   }
 };
 
-// function movieAuth(req, res, next) {
-//   const id = +req.params.id;
-//   const UserId = +req.userData.id;
-//   Movie.findByPk(id)
-//     .then((movies) => {
-//       if (!movies) {
-//         res.status(404).json({
-//           message: "Movie is not found!",
-//         });
-//       } else if (movies.UserId !== UserId) {
-//         res.status(401).json({
-//           message: "User is not authorized!",
-//         });
-//       } else {
-//         next();
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).json(err);
-//     });
-// }
+const auth = (req, res, next) => {
+  const { access_token } = req.headers;
+
+  try {
+    if (access_token) {
+      const decoded = tokenVerifier(access_token);
+      req.userData = decoded;
+      next();
+    } else {
+      throw {
+        status: 404,
+        message: "Token not found!",
+      };
+    }
+  } catch (err) {
+    res.status(500).json({
+      status: 500,
+      ...err,
+    });
+  }
+};
 
 const movieAuth = async (req, res, next) => {
   const id = +req.params.id;
@@ -77,5 +77,4 @@ const movieAuth = async (req, res, next) => {
   }
 };
 
-
-module.exports = { authentication, movieAuth };
+module.exports = { adminAuth, auth, movieAuth };

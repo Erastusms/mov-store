@@ -59,6 +59,7 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      // invoice
       payt_trx_number: {
         type: DataTypes.STRING,
         validate: {
@@ -97,7 +98,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       hooks: {
         beforeCreate: (order, options) => {
-          order.status = "open";
+          order.status = "Process";
         },
       },
       sequelize,

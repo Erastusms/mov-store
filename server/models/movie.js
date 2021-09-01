@@ -144,12 +144,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            message: "Image cannot be empty!",
-          },
-        },
+        allowNull: true,
       },
       UserId: DataTypes.INTEGER,
     },

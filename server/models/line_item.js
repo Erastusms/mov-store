@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       hooks: {
         beforeCreate: (line_item, options) => {
+          const rand = Math.round(Math.random() * 899999 + 100000);
           line_item.status = "cart";
+          line_item.uniqId = `L${line_item.MovieId}${line_item.MoviesCartId}${rand}I`;
         },
       },
       sequelize,
