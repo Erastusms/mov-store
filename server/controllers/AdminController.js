@@ -9,6 +9,7 @@ const {
 } = require("../models");
 const fs = require("fs-extra");
 const path = require("path");
+const { Op } = require("sequelize");
 
 class AdminController {
   static async profilePage(req, res) {
@@ -23,6 +24,45 @@ class AdminController {
     }
   }
 
+  static async actionConfirm(req, res) {
+    try {
+      const id = +req.params.id;
+      
+      const order = await Order.update(
+        {
+          status: "Confirm",
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+      res.status(200).json(order);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
+  static async actionReject(req, res) {
+    try {
+      const id = +req.params.id;
+      
+      const order = await Order.update(
+        {
+          status: "Rejected",
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+      res.status(200).json(order);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
   static async showDashboard(req, res) {
     try {
       const users = await User.findAll();
@@ -70,6 +110,12 @@ class AdminController {
     try {
       let orders = await Order.findAll({
         order: [["id", "ASC"]],
+        include: [
+          {
+            model: User,
+            attributes: ["name"],
+          },
+        ],
       });
 
       res.status(200).json(orders);
@@ -99,6 +145,7 @@ class AdminController {
       const MovieId = +req.params.MovieId;
       let actors = await Movies_actor.findAll({
         where: { MovieId },
+        include: [Movie],
         order: [["id", "ASC"]],
       });
       res.status(200).json(actors);

@@ -10,6 +10,10 @@ AdminRouter.get("/list-users", AdminController.showAllUsers);
 AdminRouter.delete("/list-users/:id", AdminController.deleteUser);
 
 AdminRouter.get("/list-movies", AdminController.showAllMovies);
+// AdminRouter.get(
+//   "/list-movies/:title?/:sort?/:page?",
+//   AdminController.showAllMovies
+// );
 AdminRouter.get("/detail-movies/:id", AdminController.detailMovies);
 AdminRouter.get("/my-movies", AdminController.showMyMovies);
 AdminRouter.get("/list-movies/actors/:MovieId", AdminController.showActors);
@@ -40,5 +44,7 @@ AdminRouter.put(
 
 // Order
 AdminRouter.get("/list-orders", AdminController.showAllOrders);
+AdminRouter.put("/list-orders/confirmation/:id", AdminController.actionConfirm);
+AdminRouter.put("/list-orders/reject/:id", AdminController.actionReject);
 
 module.exports = AdminRouter;

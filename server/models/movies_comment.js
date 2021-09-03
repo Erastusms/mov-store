@@ -9,14 +9,28 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Movies_comment.belongsTo(models.User)
-      Movies_comment.belongsTo(models.Movie)
+      Movies_comment.belongsTo(models.User);
+      Movies_comment.belongsTo(models.Movie);
     }
   }
   Movies_comment.init(
     {
-      comments: DataTypes.STRING,
-      rating: DataTypes.INTEGER,
+      comments: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "field cannot be empty!",
+          },
+        },
+      },
+      rating: {
+        type: DataTypes.INTEGER,
+        validate: {
+          notEmpty: {
+            message: "field cannot be empty!",
+          },
+        },
+      },
       MovieId: DataTypes.INTEGER,
       UserId: DataTypes.INTEGER,
     },

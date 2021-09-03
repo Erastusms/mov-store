@@ -49,7 +49,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-users fa-2x text-gray-300"></i>
+                  <i class="fas fa-users fa-2x text-black-500"></i>
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-film fa-2x text-gray-300"></i>
+                  <i class="fas fa-film fa-2x text-black-500"></i>
                 </div>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-receipt fa-2x text-gray-300"></i>
+                  <i class="fas fa-receipt fa-2x text-black-500"></i>
                 </div>
               </div>
             </div>

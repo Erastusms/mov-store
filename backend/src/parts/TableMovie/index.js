@@ -72,31 +72,31 @@ export default function TableMovie() {
   return (
     <div class="card shadow mb-4 mt-2">
       <div class="card-body">
-        <div class="table-responsive">
-          <table
-            class="table table-bordered"
-            id="dataTable"
-            width="100%"
-            cellspacing="0"
-          >
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Director</th>
-                <th>Release Date</th>
-                <th>Country</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {items.length === 0 ? (
-                <Loading />
-              ) : (
-                items.map((item, index) => {
+        {items.length === 0 ? (
+          <Loading />
+        ) : (
+          <div class="table-responsive">
+            <table
+              class="table table-bordered"
+              id="dataTable"
+              width="100%"
+              cellspacing="0"
+            >
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Image</th>
+                  <th>Title</th>
+                  <th>Director</th>
+                  <th>Release Date</th>
+                  <th>Country</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item, index) => {
                   return (
-                    <tr>
+                    <tr className="text-black">
                       <td>{number++}</td>
                       <td>
                         <img
@@ -133,11 +133,11 @@ export default function TableMovie() {
                       </td>
                     </tr>
                   );
-                })
-              )}
-            </tbody>
-          </table>
-        </div>
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

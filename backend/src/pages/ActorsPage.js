@@ -180,38 +180,42 @@ export default function ActorsPage() {
             </form>
           </div>
           <div class="col-md-7">
-            <div class="table-responsive">
-              <table
-                class="table table-bordered rounded"
-                id="dataTableActivity"
-                width="100%"
-                cellspacing="0"
-              >
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Real Name</th>
-                    <th>Char Name</th>
-                    <th>Year Date</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {state.length === 0 ? (
-                    <h1>Actor is empty</h1>
-                  ) : (
-                    state.map((actors) => {
+            {state.length === 0 ? (
+              <div>
+                <small>List Actors: </small>
+                <h1>Actor is empty</h1>
+              </div>
+            ) : (
+              <div class="table-responsive">
+                <h4>Top Cast</h4>
+                <table
+                  class="table table-bordered rounded"
+                  id="dataTableActivity"
+                  width="100%"
+                  cellspacing="0"
+                >
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Real Name</th>
+                      <th>Char Name</th>
+                      <th>Year Date</th>
+                      <th>Image</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {state.map((actors) => {
                       return (
-                        <tr>
+                        <tr className="text-black">
                           <td>{number++}</td>
-                          <td>{actors.actor_name}</td>
+                          <td className="fw-bold">{actors.actor_name}</td>
                           <td>{actors.char_name}</td>
                           <td>{actors.year_date}</td>
                           <td>
                             <img
-                              src={`http://localhost:3000/images/actors/${actors.filename}`}
-                              alt={`http://localhost:3000/images/actors/${actors.filename}`}
+                              src={`http://localhost:3000/images/actors/${actors.Movie.title}/${actors.filename}`}
+                              alt={`http://localhost:3000/images/actors/${actors.Movie.title}/${actors.filename}`}
                               title={actors.title}
                               className="rounded"
                               width="100%"
@@ -227,11 +231,11 @@ export default function ActorsPage() {
                           </td>
                         </tr>
                       );
-                    })
-                  )}
-                </tbody>
-              </table>
-            </div>
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -158,17 +158,6 @@ export default function AcoountPage() {
                           />
                         </div>
                       )}
-                      {/* <img
-                        src={`${API_URL}/images/avatars/${profile.avatar}`}
-                        className="card-img-top rounded"
-                        alt={`${API_URL}/images/avatars/${profile.avatar}`}
-                      />
-                      <Link
-                        to="/uploads"
-                        className="btn btn-primary d-block rounded mt-3"
-                      >
-                        Upload Image
-                      </Link> */}
                     </div>
                     <div className="col py-3 my-3 pe-3 me-3">
                       <input

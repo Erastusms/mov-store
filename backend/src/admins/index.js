@@ -50,4 +50,21 @@ const UpdateProfileAPI = async (access_token, form) => {
   return data;
 };
 
-export { AdminAPI, LoginAPI, UpdateProfileAPI };
+const getAllMovies = async (access_token, title, sort, page) => {
+  const data = await axios
+    .get(`${API_URL}/admin/list-movies/${title}/${sort}/${page}`, {
+      headers: {
+        access_token,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err.response.data;
+    });
+
+  return data;
+};
+
+export { AdminAPI, LoginAPI, UpdateProfileAPI, getAllMovies };

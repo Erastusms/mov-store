@@ -94,19 +94,19 @@ class ApiController {
     try {
       const user = await User.findOne({ where: { email: userData.email } });
 
-      if (file) {
-        file = file.filename;
-        await fs.unlink(path.join(`public/images/avatars/${user.avatar}`));
-      } else {
-        file = user.avatar;
-      }
+      // if (file) {
+      //   file = file.filename;
+      //   await fs.unlink(path.join(`public/images/avatars/${user.avatar}`));
+      // } else {
+      //   file = user.avatar;
+      // }
 
       await User.update(
         {
           name,
           birthdate,
           gender,
-          avatar: file,
+          avatar: file ? file.filename : "blank.png",
         },
         { where: { email: user.email } }
       );
@@ -127,7 +127,7 @@ class ApiController {
 
   static async homePage(req, res) {
     try {
-      const allMovie = await Movie.findAll({
+      const allMovies = await Movie.findAll({
         include: [Movies_comment, Movies_actor],
       });
       const movieCompleted = await Movie.findAll({
@@ -135,6 +135,7 @@ class ApiController {
         where: {
           tv_status: "COMPLETED",
         },
+        order: [["id", "ASC"]],
       });
       const movieCS = await Movie.findAll({
         include: [Movies_comment, Movies_actor],
@@ -150,12 +151,10 @@ class ApiController {
       });
 
       res.status(200).json({
-        allMovies: allMovie,
-        movies: {
-          completedMovies: movieCompleted,
-          comingsoonMovies: movieCS,
-          onairMovies: movieOA,
-        },
+        allMovies,
+        movieCompleted,
+        movieCS,
+        movieOA,
       });
     } catch (err) {
       res.status(500).json(err);
@@ -168,6 +167,10 @@ class ApiController {
       const movie = await Movie.findByPk(id, {
         include: [
           {
+            model: User,
+            attributes: ["name", "avatar"],
+          },
+          {
             model: Movies_comment,
             include: [
               {
@@ -178,6 +181,7 @@ class ApiController {
           },
           {
             model: Movies_actor,
+            include: [{ model: Movie, attributes: ["title"] }],
           },
         ],
       });
@@ -201,12 +205,7 @@ class ApiController {
           {
             model: Line_items,
             where: { status: "cart" },
-            include: [
-              {
-                model: Movie,
-                include: [Movies_comment, Movies_actor],
-              },
-            ],
+            include: [Movie],
             order: [["id", "ASC"]],
           },
         ],
@@ -223,8 +222,9 @@ class ApiController {
     try {
       const UserId = +req.userData.id;
       const MovieId = +req.params.id;
-      const { qty } = req.body;
+      // const { qty } = req.body;
 
+      let qty = 1;
       const movies = await Movie.findByPk(MovieId);
 
       const cartMovies = await Movies_cart.findAll({
@@ -385,14 +385,6 @@ class ApiController {
         await Movies_cart.destroy({ where: { id: cart.id } });
       });
 
-      // console.log(line_items);
-      // if (line_items.length < 1) {
-      //   throw {
-      //     status: 404,
-      //     message: "Cart not found!",
-      //   };
-      // }
-
       res.status(200).json({
         status: 200,
         message: "Successfully remove cart!",
@@ -496,7 +488,7 @@ class ApiController {
   }
 
   static async checkout(req, res) {
-    const userId = req.userData.id;
+    const userId = +req.userData.id;
     const userName = req.userData.name;
 
     try {
@@ -546,14 +538,6 @@ class ApiController {
             { status: "checkout", OrderName },
             { where: { id: line_item.id } }
           );
-
-          // const product = await Movie.findByPk(line_item.MovieId);
-          // await Movie.update(
-          //   {
-          //     stock: product.stock - line_item.qty,
-          //   },
-          //   { where: { id: product.id } }
-          // );
         });
 
         total_due = subTotal;
@@ -580,13 +564,6 @@ class ApiController {
           address,
         });
       });
-
-      // await Movies_cart.update(
-      //   {
-      //     status: "closed",
-      //   },
-      //   { where: { UserId: userId } }
-      // );
       res.json({
         status: 200,
         message: "Checkout success!",
@@ -598,7 +575,7 @@ class ApiController {
 
   static async showOrder(req, res) {
     try {
-      const UserId = req.userData.id;
+      const UserId = +req.userData.id;
       const order = await Order.findAll({
         include: [
           {
@@ -607,7 +584,6 @@ class ApiController {
               {
                 model: Movie,
                 paranoid: false,
-                include: [Movies_actor, Movies_comment],
               },
             ],
           },

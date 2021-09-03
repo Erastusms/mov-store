@@ -39,8 +39,8 @@ export default function Header({ handleLogout, isUpdated }) {
               >
                 <li>
                   <Link className="dropdown-item" to="/admin/account">
-                    <i className="fas fa-fw fa-user mr-2"></i>
-                    <span>Account</span>
+                    <i className="fas fa-fw fa-user mr-2 text-black"></i>
+                    <span className="text-black">Account</span>
                   </Link>
                 </li>
                 <li>
@@ -48,8 +48,8 @@ export default function Header({ handleLogout, isUpdated }) {
                     onClick={() => handleLogout()}
                     className="dropdown-item"
                   >
-                    <i className="fas fa-fw fa-sign-out-alt mr-2"></i>
-                    <span>Logout</span>
+                    <i className="fas fa-fw fa-sign-out-alt mr-2 text-black"></i>
+                    <span className="text-black">Logout</span>
                   </button>
                 </li>
               </ul>

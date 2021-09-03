@@ -75,51 +75,53 @@ export default function TableUser() {
         <h1>List Users</h1>
       </div>
       <div class="card-body">
-        <div class="table-responsive">
-          <table
-            class="table table-bordered"
-            id="dataTable"
-            width="100%"
-            cellspacing="0"
-          >
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Birthdate</th>
-                <th>Gender</th>
-                <th>Type</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {items.length === 0
-                ? <Loading />
-                : items.map((item, index) => {
-                    return (
-                      <tr>
-                        <td>{number++}</td>
-                        <td>{item.name}</td>
-                        <td>{item.email}</td>
-                        <td>{item.birthdate}</td>
-                        <td>{item.gender}</td>
-                        <td>{item.type}</td>
-                        <td>
-                          <button
-                            type="submit"
-                            class="btn btn-danger btn-circle btn-sm"
-                            onClick={(e) => deleteItemHandler(e, item.id)}
-                          >
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-            </tbody>
-          </table>
-        </div>
+        {items.length === 0 ? (
+          <Loading />
+        ) : (
+          <div class="table-responsive">
+            <table
+              class="table table-bordered"
+              id="dataTable"
+              width="100%"
+              cellspacing="0"
+            >
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Birthdate</th>
+                  <th>Gender</th>
+                  <th>Type</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item, index) => {
+                  return (
+                    <tr className="text-black">
+                      <td>{number++}</td>
+                      <td>{item.name}</td>
+                      <td>{item.email}</td>
+                      <td>{item.birthdate}</td>
+                      <td>{item.gender}</td>
+                      <td>{item.type}</td>
+                      <td>
+                        <button
+                          type="submit"
+                          class="btn btn-danger btn-circle btn-sm"
+                          onClick={(e) => deleteItemHandler(e, item.id)}
+                        >
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
